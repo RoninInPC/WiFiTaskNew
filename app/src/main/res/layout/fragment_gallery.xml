@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@id/load_base"
+        android:layout_width="match_parent"
+        android:layout_height="80.0dip"
+        android:background="@color/black"
+        android:text="@string/load_database"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrollView33"
+        tools:ignore="VisualLintButtonSize,TextSizeCheck" />
+    <ScrollView android:id="@id/scrollView33"
+        android:layout_width="0.0dip"
+        android:layout_height="649.0dip"
+        android:contentDescription="@string/action_settings"
+        app:layout_constraintBottom_toTopOf="@id/load_base"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout android:orientation="vertical"
+            android:id="@id/container_base"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

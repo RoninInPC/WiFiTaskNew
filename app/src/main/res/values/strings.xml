@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">WiFiTask</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="action_find">SERVICE_FIND</string>
+    <string name="action_base_update">SERVICE_BASE_UPDATE</string>
+
+    <string name="serializable_tag">LIST</string>
+    <string name="bundle_tag">BUNDLE</string>
+    <string name="alert_text">Данное деяние нарушает законы Российской Федерации.\n" +
+                "Преследуется по уголовному кодексу:\n" +
+                "Статья 272 УК РФ: Неправомерный доступ к компьютерной информации\n" +
+                "Статья 273 УК РФ: Создание, использование и распространение вредоносных программ.\n" +
+                "Данное приложение было создано в академических целях.</string>
+    <string name="load_database">Выгрузить базу данных</string>
+</resources>
