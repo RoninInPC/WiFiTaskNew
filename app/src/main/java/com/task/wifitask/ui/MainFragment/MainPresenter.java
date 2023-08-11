@@ -1,4 +1,4 @@
-package com.task.wifitask.ui.MainF;
+package com.task.wifitask.ui.MainFragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,7 +21,7 @@ public class MainPresenter implements MainContract.Presenter{
     private final BroadcastReceiver broadcastReceiver_ = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            updateViewWithTakeIntent();
+            updateView();
         }
     };
 
@@ -33,13 +33,15 @@ public class MainPresenter implements MainContract.Presenter{
         this.model_ = model;
         this.context_ = context;
 
+        updateView();//начальная инициализация, чтобы пользователь не видел белый экран
+
         context_.getApplicationContext().registerReceiver(
                 broadcastReceiver_,
                 new IntentFilter(context_.getResources().getString(R.string.action_base_update)));
     }
 
     @Override
-    public void updateViewWithTakeIntent() {
+    public void updateView() {
         view_.loadListInView(model_.getCurrentList());
     }
 

@@ -19,7 +19,7 @@ public interface WiFiContract {
 
         void updateProgressDialog(String title);
         boolean info();
-        boolean connect();
+        void connect();
         void brut();
 
     }

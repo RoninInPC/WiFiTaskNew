@@ -99,7 +99,7 @@ public class DatabaseWiFi implements RepositoryManipulation<WiFiInfo>{
                 null,
                 null,
                 null,
-                null);
+                WiFiDBHelper.KEY_LEVEL);
         List<WiFiInfo> arrayList = getListFromCursor(cursor);
         cursor.close();
         return arrayList;
@@ -113,7 +113,7 @@ public class DatabaseWiFi implements RepositoryManipulation<WiFiInfo>{
                  new String[]{String.valueOf(1)},
                 null,
                 null,
-                null);
+                WiFiDBHelper.KEY_LEVEL);
         List<WiFiInfo> arrayList = getListFromCursor(cursor);
         cursor.close();
         return arrayList;

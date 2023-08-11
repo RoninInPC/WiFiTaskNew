@@ -1,4 +1,4 @@
-package com.task.wifitask.ui.MainF;
+package com.task.wifitask.ui.MainFragment;
 
 import androidx.annotation.NonNull;
 
@@ -12,7 +12,7 @@ public interface MainContract {
     }
 
     interface Presenter{
-        void updateViewWithTakeIntent();
+        void updateView();
 
         void onDestroy();
     }

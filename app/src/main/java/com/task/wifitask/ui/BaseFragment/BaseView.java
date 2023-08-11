@@ -1,4 +1,4 @@
-package com.task.wifitask.ui.BaseF;
+package com.task.wifitask.ui.BaseFragment;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.task.wifitask.Entity.WiFiInfo;
 import com.task.wifitask.Factories.DialogFactory;
 
+import java.util.Collections;
 import java.util.List;
 
 public class BaseView implements BaseContract.View<WiFiInfo> {
@@ -23,6 +24,8 @@ public class BaseView implements BaseContract.View<WiFiInfo> {
     private Context context_;
 
     private BaseContract.Presenter presenter_;
+
+    private Dialog dialog_;
 
     public BaseView(@NonNull LinearLayout linearLayout,
                     @NonNull AppCompatButton appCompatButton,
@@ -57,7 +60,6 @@ public class BaseView implements BaseContract.View<WiFiInfo> {
 
         list.stream().allMatch(wiFiInfo ->{
             linearLayout_.addView(DecoratorBaseFragment.makeTextView(context_, wiFiInfo.toString()));
-
             return true;
         });
 
@@ -65,7 +67,8 @@ public class BaseView implements BaseContract.View<WiFiInfo> {
 
     @Override
     public void viewLoadDialog() {
-        Dialog dialog = DialogFactory.createDialog("Выгружено в Downloads",context_);
+        dialog_ = DialogFactory.createDialog("Выгружено в Downloads",context_);
+        dialog_.show();
     }
 
     @Override

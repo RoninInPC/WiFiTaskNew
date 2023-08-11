@@ -25,7 +25,7 @@ public class BaseWiFiService extends Service {
 
     @Override
     public void onCreate() {
-        DatabaseWiFi.INSTANSE = new DatabaseWiFi(getApplicationContext());//
+        DatabaseWiFi.INSTANSE = new DatabaseWiFi(getApplicationContext());
 
         broadcastReceiver_ = new BroadcastReceiver() {
             @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -38,6 +39,7 @@ public class BrutThread extends Thread{
     private final Handler handler_ =new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            //Log.e("updateProgressDialog", (String) msg.obj);
            view_.updateProgressDialog((String) msg.obj);
         }
     };
@@ -57,9 +59,9 @@ public class BrutThread extends Thread{
 
     @Override
     public void run() {
-        ConnectionTry connectionTry = android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.Q ?
-                new ConnectToWiFi(wiFiInfo_, context_) :
-                new ConnectToWiFiNew(wiFiInfo_,context_);
+        ConnectionTry connectionTry = //android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.Q ?
+                new ConnectToWiFi(wiFiInfo_, context_); //:
+                //new ConnectToWiFiNew(wiFiInfo_,context_);
         try {
             inputStream_ = context_.getApplicationContext().getAssets().open(fileName_);
 
@@ -68,6 +70,8 @@ public class BrutThread extends Thread{
                 String[] arrayOfString = scanner_.nextLine().split(" ");
 
                 for (String s : arrayOfString) {
+                    //Log.e("runThread",  s);
+
                     Message message = handler_.obtainMessage();
                     message.obj = s;
                     handler_.sendMessage(message);
@@ -80,7 +84,7 @@ public class BrutThread extends Thread{
             }
             scanner_.close();
             inputStream_.close();
-        } catch (IOException ignored) {
+        } catch (Exception e) {
         }
 
     }
@@ -88,10 +92,10 @@ public class BrutThread extends Thread{
     @Override
     public void interrupt() {
         super.interrupt();
-        scanner_.close();
         try {
+            scanner_.close();
             inputStream_.close();
-        } catch (IOException ignored) {
+        } catch (Exception e) {
         }
     }
 }

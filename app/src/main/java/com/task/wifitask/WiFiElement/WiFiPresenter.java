@@ -32,9 +32,9 @@ public class WiFiPresenter implements WiFiContract.Presenter<WiFiInfo> {
 
     @Override
     public boolean connect(WiFiInfo wiFiInfo, String password) {
-        ConnectionTry connectionTry = android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.Q ?
-        new ConnectToWiFi(wiFiInfo, context_) :
-        new ConnectToWiFiNew(wiFiInfo,context_);
+        ConnectionTry connectionTry = //android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.Q ?
+        new ConnectToWiFi(wiFiInfo, context_); //:
+        //new ConnectToWiFiNew(wiFiInfo,context_);
 
         boolean connect = connectionTry.tryConnectWiFi(password);
         if(connect)

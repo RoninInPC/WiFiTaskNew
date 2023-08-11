@@ -3,6 +3,10 @@ package com.task.wifitask.Entity;
 
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -94,6 +98,7 @@ public class WiFiInfo {
 
     public WiFiInfo() {}
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public WiFiInfo(ScanResult ScanResult) {
         SSID_ = ScanResult.SSID;
         BSSID_ = ScanResult.BSSID;

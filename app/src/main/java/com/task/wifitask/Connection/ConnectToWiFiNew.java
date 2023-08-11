@@ -13,6 +13,8 @@ import androidx.annotation.RequiresApi;
 
 import com.task.wifitask.Entity.WiFiInfo;
 
+//при тестировании выяснилось, что WifiNetworkSpecifier выдаёт ошибку при работе, при разных настройках на API>=29 (android 10).
+//Данный класс является ненадёжным при подключении и остаётся лишь для альтернативной реализации подключения к wifi.
 public class ConnectToWiFiNew extends ConnectToWiFi { //используя WifiNetworkSpecifier
     public ConnectToWiFiNew(WiFiInfo wiFiInfo, Context context) {
         super(wiFiInfo, context);
@@ -56,7 +58,7 @@ public class ConnectToWiFiNew extends ConnectToWiFi { //используя WifiN
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public boolean connectWPA() {
-        WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder()
+         WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder()
                 .setSsid(wiFiInfo_.getSSID())
                 .setWpa2Passphrase(wiFiInfo_.getPassword())
                 .setBssid(MacAddress.fromString(wiFiInfo_.getBSSID()))

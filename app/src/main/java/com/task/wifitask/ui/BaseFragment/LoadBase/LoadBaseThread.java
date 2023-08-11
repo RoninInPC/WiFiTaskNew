@@ -1,12 +1,13 @@
-package com.task.wifitask.ui.BaseF.LoadBase;
+package com.task.wifitask.ui.BaseFragment.LoadBase;
 
+import android.annotation.SuppressLint;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
 import com.task.wifitask.Entity.WiFiInfo;
-import com.task.wifitask.ui.BaseF.BaseContract;
+import com.task.wifitask.ui.BaseFragment.BaseContract;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,6 +20,7 @@ public class LoadBaseThread extends Thread {
 
     private final String fileNameNew_;
 
+    @SuppressLint("HandlerLeak")
     private final Handler handler_ = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -36,6 +38,7 @@ public class LoadBaseThread extends Thread {
     public void run() {
         try {
             File file1 = new File(model_.getPath());
+            Log.e("PATH",model_.getPath());
             File file2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
                     fileNameNew_);
             FileInputStream fileInputStream = new FileInputStream(file1);
@@ -46,10 +49,11 @@ public class LoadBaseThread extends Thread {
                 if (size > 0) {
                     fileOutputStream.write(arrayOfByte, 0, size);
                     continue;
+                }else {
+                    handler_.sendMessage(handler_.obtainMessage());
+                    break;
                 }
-                fileInputStream.close();
-                fileOutputStream.close();
-                handler_.sendMessage(new Message());
+
             }
         } catch (IOException iOException) {
             Log.e("MoveFileTask", "", iOException);

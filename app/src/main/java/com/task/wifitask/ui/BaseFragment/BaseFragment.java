@@ -1,4 +1,4 @@
-package com.task.wifitask.ui.MainF;
+package com.task.wifitask.ui.BaseFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,37 +11,36 @@ import androidx.fragment.app.Fragment;
 
 import com.task.wifitask.R;
 import com.task.wifitask.Entity.WiFiInfo;
-import com.task.wifitask.databinding.FragmentHomeBinding;
+import com.task.wifitask.databinding.FragmentGalleryBinding;
 
-public class MainFragment extends Fragment {
-
-    private FragmentHomeBinding binding_;
+public class BaseFragment extends Fragment {
 
     private Context context_;
 
-    private MainContract.View<WiFiInfo> view_;
+    private FragmentGalleryBinding binding_;
 
+    private BaseContract.View<WiFiInfo> view_;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             @NonNull ViewGroup container,
-                             @NonNull Bundle savedInstanceState) {
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        binding_ = FragmentHomeBinding.inflate(inflater, container, false);
+        binding_ = FragmentGalleryBinding.inflate(inflater, container, false);
 
-        new DecoratorMainFragment(
+        new DecoratorBaseFragment(
                 requireActivity().findViewById(R.id.toolbar),
-                binding_.scrollView2);
+                binding_.scrollView33,
+                binding_.loadBase);
 
-        view_ = new MainView(binding_.container,context_);
+        view_ = new BaseView(binding_.containerBase, binding_.loadBase, context_);
 
         return binding_.getRoot();
     }
 
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         context_ = context;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

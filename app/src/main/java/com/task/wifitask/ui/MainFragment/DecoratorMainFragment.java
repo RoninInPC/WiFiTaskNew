@@ -1,4 +1,4 @@
-package com.task.wifitask.ui.MainF;
+package com.task.wifitask.ui.MainFragment;
 
 import android.content.res.Resources;
 import android.view.ViewGroup;

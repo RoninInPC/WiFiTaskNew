@@ -1,4 +1,4 @@
-package com.task.wifitask.ui.BaseF;
+package com.task.wifitask.ui.BaseFragment;
 
 import androidx.annotation.NonNull;
 
@@ -13,7 +13,7 @@ public interface BaseContract {
 
     interface Presenter{
 
-        void updateViewWithTakeIntent();
+        void updateView();
 
         void loadDataBase();
 

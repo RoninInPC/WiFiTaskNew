@@ -33,9 +33,10 @@ public class Permissoins {
     }
 
     public void check(){
-        for(String permission : namesOfPermission_){
+        namesOfPermission_.stream().allMatch(permission->{
             checkPermission(permission, permissonCode_++);
-        }
+            return true;
+        });
     }
 
     private void checkPermission(String permissionName, int requestCode) {

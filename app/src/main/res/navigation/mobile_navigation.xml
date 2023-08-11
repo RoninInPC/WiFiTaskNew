@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.task.wifitask.ui.MainF.MainFragment"
+        android:name="com.task.wifitask.ui.MainFragment.MainFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.task.wifitask.ui.BaseF.BaseFragment"
+        android:name="com.task.wifitask.ui.BaseFragment.BaseFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 </navigation>

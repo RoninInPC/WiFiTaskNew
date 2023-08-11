@@ -1,4 +1,4 @@
-package com.task.wifitask.ui.BaseF;
+package com.task.wifitask.ui.BaseFragment;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.task.wifitask.R;
 import com.task.wifitask.Entity.WiFiInfo;
+import com.task.wifitask.ui.BaseFragment.LoadBase.LoadBaseThread;
 
 public class BasePresenter implements BaseContract.Presenter{
 
@@ -21,7 +22,7 @@ public class BasePresenter implements BaseContract.Presenter{
     private final BroadcastReceiver broadcastReceiver_ = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            updateViewWithTakeIntent();
+            updateView();
         }
     };
 
@@ -32,6 +33,8 @@ public class BasePresenter implements BaseContract.Presenter{
         model_ = model;
         context_ = context;
 
+        updateView(); //начальная инициализация
+
         context_.getApplicationContext().registerReceiver(
                 broadcastReceiver_,
                 new IntentFilter(context_.getResources().getString(R.string.action_base_update))
@@ -41,13 +44,15 @@ public class BasePresenter implements BaseContract.Presenter{
 
 
     @Override
-    public void updateViewWithTakeIntent() {
+    public void updateView() {
         view_.loadListInView(model_.getList());
     }
 
     @Override
     public void loadDataBase() {
-       String path = model_.getPath();
+        LoadBaseThread baseThread = new LoadBaseThread(model_,view_,"database.db");
+        baseThread.run();
+
     }
 
     @Override

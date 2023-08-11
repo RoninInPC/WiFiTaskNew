@@ -25,8 +25,6 @@ public class ConnectToWiFi implements ConnectionTry {
         try {
             WifiConfiguration wifiConfiguration = new WifiConfiguration();
             wifiConfiguration.SSID = "\"" + wiFiInfo_.getSSID() + "\"";
-            wifiConfiguration.status = 2;
-            wifiConfiguration.priority = 40;
 
             wifiConfiguration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
             wifiConfiguration.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
@@ -38,10 +36,8 @@ public class ConnectToWiFi implements ConnectionTry {
             wifiConfiguration.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
             wifiConfiguration.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
             wifiConfiguration.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-
             WifiManager wifiManager = (WifiManager) context_.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            return (wifiManager.addNetwork(wifiConfiguration) == -1) ?
-                    false :
+            return wifiManager.addNetwork(wifiConfiguration) != -1 &&
                     findConnect(wifiManager.getConfiguredNetworks(), wifiConfiguration.SSID, wifiManager);
         } catch (Exception exception) {
             return false;
@@ -74,8 +70,7 @@ public class ConnectToWiFi implements ConnectionTry {
             }
             wifiConfiguration.wepTxKeyIndex = 0;
             WifiManager wifiManager = (WifiManager)context_.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            return (wifiManager.addNetwork(wifiConfiguration) == -1) ?
-                    false :
+            return wifiManager.addNetwork(wifiConfiguration) != -1 &&
                     findConnect(wifiManager.getConfiguredNetworks(), wifiConfiguration.SSID, wifiManager);
         } catch (Exception exception) {
             return false;
@@ -103,8 +98,7 @@ public class ConnectToWiFi implements ConnectionTry {
             
             wifiConfiguration.preSharedKey = "\"" + wiFiInfo_.getPassword() + "\"";
             WifiManager wifiManager = (WifiManager)context_.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-            return (wifiManager.addNetwork(wifiConfiguration) == -1) ?
-                    false :
+            return wifiManager.addNetwork(wifiConfiguration) != -1 &&
                     findConnect(wifiManager.getConfiguredNetworks(), wifiConfiguration.SSID, wifiManager);
         } catch (Exception exception) {
             return false;

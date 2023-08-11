@@ -102,9 +102,10 @@ public class WiFiView extends ConstraintLayout implements WiFiContract.View{
     }
 
     public void ChangeElementWithWifiInfo(WiFiInfo wiFiInfo) {
+        wiFiInfo_ = wiFiInfo;
         ChangeSizeWithDisplay();
-        name_.setText(wiFiInfo.getSSID());
-        switch (wiFiInfo.getLevel()) {
+        name_.setText(wiFiInfo_.getSSID());
+        switch (wiFiInfo_.getLevel()) {
             default:
                 icon_.setImageResource(R.drawable.wifi_nope);
                 break;
@@ -149,10 +150,7 @@ public class WiFiView extends ConstraintLayout implements WiFiContract.View{
         connect_.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = connect() ?
-                        DialogFactory.createDialog(DialogFactory.DialogType.CONNECT, context_) :
-                        DialogFactory.createDialog(DialogFactory.DialogType.NO_CONNECT, context_);
-                dialog.show();
+               connect();
             }
         });
     }
@@ -226,7 +224,7 @@ public class WiFiView extends ConstraintLayout implements WiFiContract.View{
     @Override
     public void updateProgressDialog(String title) {
         progressDialog_.setProgress(progressDialog_.getProgress()+1);
-        progressDialog_.setTitle(title);
+        progressDialog_.setMessage(title);
     }
 
     @Override
@@ -235,20 +233,23 @@ public class WiFiView extends ConstraintLayout implements WiFiContract.View{
     }
 
     @Override
-    public boolean connect() {
+    public void connect() {
         EditText editText = new EditText(context_);
         editText.setText(password_.getText());
-
-        final boolean[] connect = {false};
 
         Dialog dialog = new AlertDialog.Builder(context_)
                 .setCancelable(false)
                 .setPositiveButton("Подключиться",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        connect[0] = presenter_.connect(wiFiInfo_, String.valueOf(editText.getText()));
-                        if(connect[0])
+                        boolean connect = presenter_.connect(wiFiInfo_, String.valueOf(editText.getText()));
+                        if(connect)
                             updatePassword(String.valueOf(editText.getText()));
+
+                        Dialog dialog = connect ?
+                                DialogFactory.createDialog(DialogFactory.DialogType.CONNECT, context_) :
+                                DialogFactory.createDialog(DialogFactory.DialogType.NO_CONNECT, context_);
+                        dialog.show();
                     }
                 })
                 .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
@@ -262,7 +263,6 @@ public class WiFiView extends ConstraintLayout implements WiFiContract.View{
                 .create();
 
         dialog.show();
-        return connect[0];
     }
 
     @Override
@@ -283,6 +283,7 @@ public class WiFiView extends ConstraintLayout implements WiFiContract.View{
                         progressDialog_ = makeProgressDialog(context_);
                         progressDialog_.setMax(14443711);
                         progressDialog_.setProgress(0);
+                        progressDialog_.setMessage("0");
                         progressDialog_.show();
                         presenter_.brut(wiFiInfo_);
 
@@ -290,22 +291,22 @@ public class WiFiView extends ConstraintLayout implements WiFiContract.View{
                 })
                 .setMessage(context_.getResources().getString(R.string.alert_text))
                 .create();
-
+        alertDialog.show();
     }
 
     private ProgressDialog makeProgressDialog(Context context){
-        ProgressDialog progressDialog = (ProgressDialog) new ProgressDialog.Builder(context)
-                .setCancelable(false)
-                .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                        presenter_.cancelBrut();
-                    }
-                })
-                .create();
 
+        ProgressDialog progressDialog = new ProgressDialog(context);//Builder выдаёт ошибку, что не может привести к AlertDialog
+
+        progressDialog.setCancelable(false);
+        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Отмена", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int Int) {
+                dialogInterface.cancel();
+                presenter_.cancelBrut();
+            }
+        });
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
         return progressDialog;
     }
 

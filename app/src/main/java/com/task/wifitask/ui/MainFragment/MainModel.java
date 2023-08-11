@@ -1,4 +1,4 @@
-package com.task.wifitask.ui.MainF;
+package com.task.wifitask.ui.MainFragment;
 
 import com.task.wifitask.Entity.WiFiInfo;
 import com.task.wifitask.Base.DatabaseWiFi;
