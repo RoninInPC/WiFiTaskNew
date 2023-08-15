@@ -6,17 +6,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.task.wifitask.R;
 import com.task.wifitask.Entity.WiFiInfo;
 
 import java.util.List;
 
+//Данный сервис принимает информацию о сетях и обновляет базу данных, при этом помечая текущие сети и остальные
 public class BaseWiFiService extends Service {
 
     private final String tag_ = "BASE_SERVICE";
@@ -28,6 +31,7 @@ public class BaseWiFiService extends Service {
         DatabaseWiFi.INSTANSE = new DatabaseWiFi(getApplicationContext());
 
         broadcastReceiver_ = new BroadcastReceiver() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onReceive(Context context, Intent intent) {
                 List<ScanResult> list_ = (List<ScanResult>) intent.
@@ -68,6 +72,7 @@ public class BaseWiFiService extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void updateDatabase(@NonNull List<ScanResult> scanResultList){
         scanResultList.stream().allMatch( scanResult ->{
             WiFiInfo wiFiInfo = new WiFiInfo(scanResult);

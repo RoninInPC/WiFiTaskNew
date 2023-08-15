@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import java.io.Serializable;
 import java.util.List;
 
+//Данный сервис получает и пересылает информацию о сетях через броадкаст (принимает BaseWiFiService)
 public class ScannerWiFiService extends Service {
     private List<ScanResult> list_;
 

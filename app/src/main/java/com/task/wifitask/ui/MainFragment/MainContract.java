@@ -3,7 +3,7 @@ package com.task.wifitask.ui.MainFragment;
 import androidx.annotation.NonNull;
 
 import java.util.List;
-
+//основной набор функций MainFragment заключается в том, чтобы получать сообщение от BaseWiFiService и обновлять View
 public interface MainContract {
 
     interface Model<Entity>{
